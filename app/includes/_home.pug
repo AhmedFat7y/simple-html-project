@@ -1,2 +1,18 @@
-main
-  p Content goes here
+.container
+  #spinner
+    .rect1
+    .rect2
+    .rect3
+    .rect4
+    .rect5
+  input#speech(type='text')
+  button#rec.btn Speak
+  button#reset.btn Reset
+  #spokenResponse.spoken-response
+    .spoken-response__text
+.debug
+  .debug__btn.btn
+    | Debug JSON results
+  .debug__content
+    textarea#response(cols='40', rows='20')
+link(href='https://fonts.googleapis.com/css?family=Titillium+Web:200', rel='stylesheet', type='text/css')

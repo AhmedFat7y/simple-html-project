@@ -606,6 +606,22 @@ module.exports = function (grunt) {
         'svgmin'
       ]
     },
+    // needs configuration
+    critical: {
+      test: {
+        options: {
+          base: './',
+          css: [
+            'test/fixture/styles/main.css',
+            'test/fixture/styles/bootstrap.css'
+          ],
+          width: 320,
+          height: 70
+        },
+        src: 'test/fixture/index.html',
+        dest: 'test/generated/index-critical.html'
+      }
+    },
 
     'sftp-deploy': {
       build: {
@@ -670,9 +686,9 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    'concat',
-    'cssmin',
-    'uglify',
+    // 'concat',
+    // 'cssmin',
+    // 'uglify',
     'svgstore:default',
     'copy:dist',
     'modernizr',
