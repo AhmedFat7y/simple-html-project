@@ -134,19 +134,30 @@ table .row-header, table th {
   user-select: none;
   background-image: none;
   border: 1px solid transparent;
-  border-radius: 0;
-  width: 100%;
+  border-radius: 5px;
   color: #fff;
 }
 
 
+.modes-actions {
+  padding: 20px 0;
+  text-align: center;
+  .btn + .btn {
+    margin-left: 10px;
+  }
+  .active {
+    background: #43b448;
+  }
+}
 
 td .btn {
   position: relative;
   background: #43b448;
   line-height: 50px;
   padding: 0;
+  border-radius: 0;
   text-align: center;
+  width: 100%;
   &.disabled {
     background-color: gray;
     cursor: not-allowed;

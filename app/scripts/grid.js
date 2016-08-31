@@ -257,9 +257,9 @@ var size = {
   cols: 10
 };
 var editingModes = {
-  editingSeatsLayout: {clickClass: 'disabled', rightClickClass: 'edit-category'},
-  editingSeatsTypes: ['selected', 'edit-availability'],
-  bookingSeats: ['booked']
+  editingSeatsLayout: {leftClickClass: 'disabled', rightClickClass: 'edit-category'},
+  editingSeatsTypes: {leftClickClass: 'selected', rightClickClass: 'edit-availability'},
+  bookingSeats: {leftClickClass: 'booked', rightClickClass: ''}
 };
 var $container,
   currentEditingMode = editingModes.editingSeatsLayout;
@@ -319,19 +319,43 @@ function createGrid(rows, cols, data) {
 $(document).ready(function() {
   $container = $('.container');
   $container.append(createGrid(size.rows, size.cols, data));
+
   $container.on('click', 'table .btn', function (e){
     e.preventDefault();
-    $(this).toggleClass(currentEditingMode.clickClass)
+    var self = $(this);
+    if(self.hasClass(editingModes.editingSeatsLayout.leftClickClass)) {
+      return ;
+    }
+    self.toggleClass(currentEditingMode.leftClickClass)
       .removeClass(currentEditingMode.rightClickClass);
   });
+
   $container.on('contextmenu', 'table .btn', function (e){
     e.preventDefault();
     var self = $(this);
-    if(self.hasClass(editingModes.editingSeatsLayout.clickClass)) {
+    if(self.hasClass(editingModes.editingSeatsLayout.leftClickClass)) {
       return ;
     }
     self.addClass(currentEditingMode.rightClickClass);
   });
+
+  $container.on('click', '.modes-actions .btn', function (e){
+    e.preventDefault();
+    var self = $(this);
+    var parent = self.parent();
+    var actionMode = self.data('action-mode');
+    parent.find('.active').removeClass('active');
+    self.addClass('active');
+    if (actionMode === 'seats-booking') {
+      currentEditingMode = editingModes.bookingSeats;
+    } else if (actionMode === 'seats-layout') {
+      currentEditingMode = editingModes.editingSeatsLayout;
+    } else if (actionMode === 'seats-type') {
+      currentEditingMode = editingModes.editingSeatsTypes;
+    }
+
+  });
+
 });
 
 //click and dblclick to set a category quickly events to be used
