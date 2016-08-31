@@ -1,4 +1,6 @@
-var data = [{
+
+var data = [
+  {
   row: 'A',
   col: '0',
   status: 'available',
@@ -254,15 +256,25 @@ var size = {
   rows: 5,
   cols: 10
 };
-var organizedData = {};
+var editingModes = {
+  editingSeatsLayout: {clickClass: 'disabled', rightClickClass: 'edit-category'},
+  editingSeatsTypes: ['selected', 'edit-availability'],
+  bookingSeats: ['booked']
+};
+var $container,
+  currentEditingMode = editingModes.editingSeatsLayout;
+  organizedData = {};
+
 function prepareData(data) {
   var _data = {};
   for(var i = 0; i < data.length; i++) {
+    if (data[i].status == 'available') {
+      data[i].status = '';
+    }
     _data[data[i].row + '-' + data[i].col] = data[i];
   }
   return _data;
 }
-
 function buildColumnsHeaders(cols) {
   var colHeader = 0;
   var gridTemplate = '<tr class="cols-header">';
@@ -280,15 +292,15 @@ function buildRowData(cols, rowHeader) {
   for(var i = 0; i < cols; i++) {
     var seatName = rowHeaderChar + '-' + i;
     var columnData = organizedData[seatName];
-    if (columnData) {
-      gridTemplate += '<td><button class="btn ' + columnData.status + '">' + seatName + '</button></td>';
-    } else {
-      gridTemplate += '<td><button class="btn non-existent">' + seatName + '</button></td>';
+    if (!columnData) {
+      columnData = {status: 'disabled'};
     }
+    gridTemplate += '<td><label class="btn ' + columnData.status + '" for="' + seatName + '">' + seatName
+      + '<input type="checkbox" name="seat" value="' + seatName + '" id="' + seatName + '">'
+      + '</label></td>';
   }
   return gridTemplate + '</tr>';
 }
-
 function createGrid(rows, cols, data) {
   var rowHeader = 'A'.charCodeAt(0);
   var gridTemplate = '<table>';
@@ -302,4 +314,24 @@ function createGrid(rows, cols, data) {
   return gridTemplate + '</table>';
 }
 
-$('body').append(createGrid(size.rows, size.cols, data));
+
+
+$(document).ready(function() {
+  $container = $('.container');
+  $container.append(createGrid(size.rows, size.cols, data));
+  $container.on('click', 'table .btn', function (e){
+    e.preventDefault();
+    $(this).toggleClass(currentEditingMode.clickClass)
+      .removeClass(currentEditingMode.rightClickClass);
+  });
+  $container.on('contextmenu', 'table .btn', function (e){
+    e.preventDefault();
+    var self = $(this);
+    if(self.hasClass(editingModes.editingSeatsLayout.clickClass)) {
+      return ;
+    }
+    self.addClass(currentEditingMode.rightClickClass);
+  });
+});
+
+//click and dblclick to set a category quickly events to be used

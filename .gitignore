@@ -7,3 +7,5 @@ extra
 .ftppass
 sftpCache.json
 .idea
+*.bkup
+.DS_Store

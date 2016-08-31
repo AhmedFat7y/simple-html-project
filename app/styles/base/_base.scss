@@ -101,6 +101,7 @@ a {
 table {
   width: 60%;
   margin: 50px auto;
+  table-layout: fixed
 }
 
 table td {
@@ -135,14 +136,32 @@ table .row-header, table th {
   border: 1px solid transparent;
   border-radius: 0;
   width: 100%;
-  height: 50px;
   color: #fff;
 }
 
-.non-existent {
-  background: gray;
-}
 
-.available {
-  background: green;
+
+td .btn {
+  position: relative;
+  background: #43b448;
+  line-height: 50px;
+  padding: 0;
+  text-align: center;
+  &.disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+  &.selected {
+    background-color: #6f1400;
+  }
+  &.booked {
+    background-color: #d1230f;
+  }
+  &.edit-category {
+    background-color: yellow;
+  }
+  input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+  }
 }
