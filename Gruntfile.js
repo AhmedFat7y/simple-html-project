@@ -235,7 +235,7 @@ module.exports = function (grunt) {
         ignorePath: /^\/|\.\.\//,
         src: [
           '<%= config.app %>/includes/_head.pug',
-          '<%= config.app %>/includes/_scripts.pug',
+          '<%= config.app %>/includes/_scripts.pug'
         ],
         exclude: [
           'bower_components/modernizr/modernizr.js'
@@ -245,7 +245,7 @@ module.exports = function (grunt) {
       sass: {
         src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
-      },
+      }
     },
 
     // Renames files for browser caching purposes
@@ -318,9 +318,9 @@ module.exports = function (grunt) {
             css: ['concat', 'cssmin']
           },
           post: {}
-        },
+        }
       },
-      html: '.tmp/index.html'
+      html: '.tmp/home.html'
     },
 
 
@@ -398,35 +398,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // By default, your `index.html`'s <!-- Usemin block --> will take care
-    // of minification. These next options are pre-configured if you do not
-    // wish to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= config.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css',
-    //         '<%= config.app %>/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: '<%= config.app %>',
-    //       dest: '<%= config.dist %>',
-    //       src: [
-    //         'scripts/*.js'
-    //       ]
-    //     }]
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
-
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
@@ -496,50 +467,6 @@ module.exports = function (grunt) {
         cwd: '<%= config.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
-      },
-      server: {
-        files: [
-          {
-            src: 'bower_components/jquery/dist/jquery.min.js',
-            dest: '.tmp/scripts/lib/jquery/jquery.js'
-          }, {
-            expand: true,
-            dot: true,
-            cwd: 'bower_components/bootstrap/js',
-            src: ['*.js'],
-            dest: '.tmp/scripts/lib/bootstrap'
-          }, {
-            src: 'bower_components/moment/moment.js',
-            dest: '.tmp/scripts/lib/moment/moment.js'
-          }, {
-            src: 'bower_components/bootstrap-daterangepicker/daterangepicker.js',
-            dest: '.tmp/scripts/lib/bootstrap-addons/daterangepicker.js'
-          }, {
-            src: 'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
-            dest: '.tmp/scripts/lib/bootstrap-addons/datepicker.js'
-          }, {
-            src: 'bower_components/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js',
-            dest: '.tmp/scripts/lib/bootstrap-addons/bootstrap-hover-dropdown.js'
-          }, {
-            src: 'bower_components/bootstrap-select/dist/js/bootstrap-select.js',
-            dest: '.tmp/scripts/lib/bootstrap-addons/bootstrap-select.js'
-          }, {
-            src: 'bower_components/uniform/lib/jquery.uniform.js',
-            dest: '.tmp/scripts/lib/jquery/plugins/uniform.js'
-          }, {
-            src: 'bower_components/jquery-minicolors/jquery.minicolors.js',
-            dest: '.tmp/scripts/lib/jquery/plugins/minicolors.js'
-          }, {
-            src: 'bower_components/jquery-minicolors/jquery.minicolors.png',
-            dest: '.tmp/images/jquery.minicolors.png'
-          }, {
-            expand: true,
-            dot: true,
-            cwd: 'bower_components/flot',
-            src: ['*.js'],
-            dest: '.tmp/scripts/lib/flot'
-          }
-        ]
       }
     },
 
@@ -573,25 +500,12 @@ module.exports = function (grunt) {
       }
     },
 
-    requirejs: {
-      compile: {
-        options: {
-          baseUrl: './',
-          mainConfigFile: 'scripts/config.js',
-          // name: 'path/to/almond', /* assumes a production build using almond, if you don't use almond, you need to set the "includes" or "modules" option instead of name */
-          include: [ 'src/main.js' ],
-          out: 'dist/scripts/optimized.js'
-        }
-      }
-    },
-
     // Run some tasks in parallel to speed up build process
     concurrent: {
       server: [
         'babel:dist',
         'sass:server',
-        'copy:styles',
-        'copy:server'
+        'copy:styles'
       ],
       test: [
         'babel',
@@ -601,7 +515,6 @@ module.exports = function (grunt) {
         'babel',
         'sass',
         'copy:styles',
-        'copy:server',
         'imagemin',
         'svgmin'
       ]
@@ -686,9 +599,9 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
-    // 'concat',
-    // 'cssmin',
-    // 'uglify',
+    'concat',
+    'cssmin',
+    'uglify',
     'svgstore:default',
     'copy:dist',
     'modernizr',
@@ -698,7 +611,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'newer:jshint',
+    // 'newer:jshint',
     //'test',
     'build'
   ]);

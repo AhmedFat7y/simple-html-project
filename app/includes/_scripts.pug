@@ -1,8 +1,23 @@
 // build:js({app,.tmp}) scripts/vendor.js
 // bower:js
 script(src='../bower_components/jquery/dist/jquery.js')
+script(src='../bower_components/d3/d3.js')
+script(src='../bower_components/sigma.js/sigma.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.layout.forceAtlas2.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.parsers.gexf.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.parsers.json.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.plugins.animate.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.plugins.dragNodes.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.plugins.filter.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.plugins.neighborhoods.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.renderers.customEdgeShapes.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.renderers.customShapes.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.renderers.edgeLabels.min.js')
+script(src='../bower_components/sigma.js/plugins/sigma.statistics.HITS.min.js')
 // endbower
 // endbuild
 // build:js({app,.tmp}) scripts/main.js
+script(src='scripts/data.js')
+script(src='scripts/data-parser.js')
 script(src='scripts/main.js')
 // endbuild
